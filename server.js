@@ -14,6 +14,10 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(initial_path, "home.html"));
 });
 
+app.get('/editor', (req, res) => {
+    res.sendFile(path.join(initial_path, "editor.html"));
+});
+
 // Start the server
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
