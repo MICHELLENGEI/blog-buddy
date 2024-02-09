@@ -1,48 +1,55 @@
-*{
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
-.logo{
+
+.logo {
     width: 80px;
-    height:auto;
+    height: auto;
     padding: 0;
-    
+
 }
-.body{
+
+.body {
     width: 100%;
     position: relative;
     font-family: 'poppins', sans-serif;
 }
-.navbar{
+
+.navbar {
     background-color: rgb(196, 164, 124);
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 100px;
-    width: 100% ;
+    width: 100%;
     height: 60px;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 9;
 }
-.links-container{
+
+.links-container {
     list-style: none;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
 }
-.link-item{
+
+.link-item {
     margin-left: 20px;
     font-size: 18px;
 }
-.link{
+
+.link {
     color: white;
     text-decoration: none;
 }
-.header{
+
+.header {
     margin-top: 60px;
     width: 100%;
     height: calc(100vh - 60px);
@@ -52,31 +59,62 @@
     justify-content: center;
     align-items: center;
 }
-.content{
-text-align: center; 
+
+.content {
+    text-align: center;
 }
-.heading{
-    color:white;
-    text-transform:capitalize ;
+
+.heading {
+    color: white;
+    text-transform: capitalize;
     font-size: 80px;
     line-height: 60px;
     margin-bottom: 80px;
 }
 
-.heading .small{
-    display:block;
+.heading .small {
+    display: block;
     font-size: 48px;
 }
-.heading .no-fill{
+
+.heading .no-fill {
     font-style: italic;
-    color:transparent;
+    color: transparent;
     -webkit-text-stroke: 2px white;
 }
-.btn{
+
+.btn {
     padding: 10px 20px;
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.7);
     color: black;
     text-decoration: none;
     text-transform: capitalize;
+}
+
+.blogs-section {
+    width: 100%;
+    padding: 50px 5vw;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 80px
+}
+
+.blog-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.blog-overview {
+    margin: 10px 0 20px;
+    line-height: 30px;
+}
+
+.btn.dark{
+    background: black;
+    color: white;
+     
 }
