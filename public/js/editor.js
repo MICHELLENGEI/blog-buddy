@@ -45,35 +45,35 @@ const addImage = (imagepath, alt) => {
     articleField.value = articleField.value.slice(0, curPos) + textToInsert + articleField.value.slice(curPos);
 }
  
-let months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 publishBtn.addEventListener('click', () => {
     if(articleField.value.length && blogTitleField.value.length){
-        //generating Id
-        let letters ='abcdefghijklmnopqrstuvwxyz';
-        let blogTitle = blogTitleField.value.split("").join("-");
+        // generating id
+        let letters = 'abcdefghijklmnopqrstuvwxyz';
+        let blogTitle = blogTitleField.value.split(" ").join("-");
         let id = '';
-        for(let i=0; 1< 4; i++){
+        for(let i = 0; i < 4; i++){
             id += letters[Math.floor(Math.random() * letters.length)];
         }
-        // setting up doc name
-        let docName =  `&{blogTitle}-${id}`;
-        let date = new Date();
 
-        // access firestore with db variables
-        db.collection("blog").doc(docName).set({
+        // setting up docName
+        let docName = `${blogTitle}-${id}`;
+        let date = new Date(); // for published at info
+
+        //access firstore with db variable;
+        db.collection("blogs").doc(docName).set({
             title: blogTitleField.value,
-            article:articleField.value,
-            bannerImage:bannerPath,
-            publishedAt:`${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`
+            article: articleField.value,
+            bannerImage: bannerPath,
+            publishedAt: `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`
         })
-        .then(() =>{
+        .then(() => {
+            // console.log("Data entered")
             location.href = `/${docName}`;
         })
-        .catch((err) =>{
-            console.error(err)
+        .catch((err) => {
+            console.error(err);
         })
-
     }
-    
 })
