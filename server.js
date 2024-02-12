@@ -33,13 +33,15 @@ app.post('/upload',(req, res) => {
     //image upload path
     let path = 'public/uploads/' + imagename;
 
+
     //create upload
     file.mv(path,(err,result) =>{
         if(err){
             throw err;
         }else{
             //image upload path
-            res.json('uploads/${imagename}')
+            res.json(`uploads/${imagename}`);
+
         }
     })
 })
