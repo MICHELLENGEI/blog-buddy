@@ -5,7 +5,7 @@ const path = require('path');
 const fileupload = require('express-fileupload')
 
 // Define the path to the 'public' directory
-let initial_path = path.join(__dirname,"public");
+let initial_path = path.join(__dirname, "public");
 
 const app = express();
 
@@ -23,7 +23,7 @@ app.get('/editor', (req, res) => {
 });
 
 //uploads route
-app.post('/upload',(req, res) => {
+app.post('/upload', (req, res) => {
     let file = req.files.image;
     let date = new Date();
 
@@ -35,20 +35,25 @@ app.post('/upload',(req, res) => {
 
 
     //create upload
-    file.mv(path,(err,result) =>{
-        if(err){
+    file.mv(path, (err, result) => {
+        if (err) {
             throw err;
-        }else{
+        } else {
             //image upload path
             res.json(`uploads/${imagename}`);
 
         }
     })
 })
-app.get("/:blog",(req, res) =>{
-    res.sendFile(path.join(initial_path,"blog.html"));
+app.get("/admin", (req, res) => {
+    res.sendFile(path.join(initial_path, "dashboard.html"))
 })
-app.use((req,res)=>{
+app.get("/:blog", (req, res) => {
+    res.sendFile(path.join(initial_path, "blog.html"));
+})
+
+
+app.use((req, res) => {
     res.json("404");
 });
 
