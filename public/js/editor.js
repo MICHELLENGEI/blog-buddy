@@ -66,7 +66,9 @@ publishBtn.addEventListener('click', () => {
             title: blogTitleField.value,
             article: articleField.value,
             bannerImage: bannerPath,
-            publishedAt: `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`
+            publishedAt: `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`,
+            author: auth.currentUser.email.split("@")[0]
+
         })
         .then(() => {
             // console.log("Data entered")
@@ -75,5 +77,11 @@ publishBtn.addEventListener('click', () => {
         .catch((err) => {
             console.error(err);
         })
+    }
+})
+// check if user is logged in or not
+auth.onAuthStateChanged((user) => {
+    if(!user){
+        location.replace("/admin");//redirects to admin if user isnt logged in 
     }
 })
