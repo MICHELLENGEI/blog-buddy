@@ -44,21 +44,25 @@ const addImage = (imagepath, alt) => {
     let textToInsert = `\r![${alt}](${imagepath})\r`;
     articleField.value = articleField.value.slice(0, curPos) + textToInsert + articleField.value.slice(curPos);
 }
- 
+
 let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 publishBtn.addEventListener('click', () => {
-    if(articleField.value.length && blogTitleField.value.length){
-        // generating id
-        let letters = 'abcdefghijklmnopqrstuvwxyz';
-        let blogTitle = blogTitleField.value.split(" ").join("-");
-        let id = '';
-        for(let i = 0; i < 4; i++){
-            id += letters[Math.floor(Math.random() * letters.length)];
+    if (articleField.value.length && blogTitleField.value.length) {
+        let docName;
+        if (blogId[0] == 'editor') {
+            // generating id
+            let letters = 'abcdefghijklmnopqrstuvwxyz';
+            let blogTitle = blogTitleField.value.split(" ").join("-");
+            let id = '';
+            for (let i = 0; i < 4; i++) {
+                id += letters[Math.floor(Math.random() * letters.length)];
+            }
+            let docName = `${blogTitle}-${id}`;
+        } else {
+            docName = decodeURI(blogId[0]);
         }
 
-        // setting up docName
-        let docName = `${blogTitle}-${id}`;
         let date = new Date(); // for published at info
 
         //access firstore with db variable;
@@ -70,18 +74,38 @@ publishBtn.addEventListener('click', () => {
             author: auth.currentUser.email.split("@")[0]
 
         })
-        .then(() => {
-            // console.log("Data entered")
-            location.href = `/${docName}`;
-        })
-        .catch((err) => {
-            console.error(err);
-        })
+            .then(() => {
+                // console.log("Data entered")
+                location.href = `/${docName}`;
+            })
+            .catch((err) => {
+                console.error(err);
+            })
     }
 })
 // check if user is logged in or not
 auth.onAuthStateChanged((user) => {
-    if(!user){
+    if (!user) {
         location.replace("/admin");//redirects to admin if user isnt logged in 
     }
 })
+
+let blogId = location.pathname.split("/");
+// alert(blogId)
+blogId.shift();
+
+if (blogId[0] != "editor") {
+    let docRef = db.collection("blogs").doc(decodeURI(blogId[0]))
+    docRef.get().then((doc) => {
+        if (doc.exists) {
+            let data = doc.data();
+            bannerPath = data.bannerImage;
+            banner.style.backgroundImage = `url(${bannerPath})`
+            blogTitleField.value = data.title;
+            articleField.value = data.article;
+
+        } else {
+            location.replace("/")
+        }
+    })
+}
