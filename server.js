@@ -51,6 +51,9 @@ app.get("/admin", (req, res) => {
 app.get("/:blog", (req, res) => {
     res.sendFile(path.join(initial_path, "blog.html"));
 })
+app.get("/:blog/editor", (req, res) => {
+    res.sendFile(path.join(initial_path, "editor.html"));
+})
 
 
 app.use((req, res) => {
@@ -58,6 +61,6 @@ app.use((req, res) => {
 });
 
 // Start the server
-app.listen(3000, () => {
+app.listen(process.env.PORT ||3000, () => {
     console.log('Server is running on port 3000');
 });
