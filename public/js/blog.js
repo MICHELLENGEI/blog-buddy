@@ -24,6 +24,16 @@ const setupBlog = (data) =>{
 
     publish.innerHTML += ` by ${data.author}`;
    
+   try{
+    if(data.author == auth.currentUser.email.split('@')[0]){
+        let editBtn = document.getElementById('edit-blog-btn');
+        editBtn.style.display = "inline";
+        editBtn.href = `${blogId}/editor`
+    };
+   }catch{
+    
+   }
+
     const article =document.querySelector('.article');
     addArticle(article, data.article);
 }
